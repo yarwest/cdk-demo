@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>CDK demo - tweet analyser front-end</title>
+    </head>
+    <body>
+        <div class="pageContainer">
+            <img src="https://a0.awsstatic.com/libra-css/images/logos/aws_smile-header-desktop-en-white_59x35@2x.png" class="logo" alt="logo" />
+            <h1>CDK demo</h1>
+            <h2>Tweet analyser front-end</h2>
+            <div class="inputWrapper">
+                <label for="hashtagInput">Query:</label>
+                <input id="hashtagInput" type="text" />
+            </div>
+            <button onClick="fetchTweets()">
+                Refresh tweets
+            </button>
+            <div id="resultsContainer">
+                <p>Click refresh to fetch tweets</p>
+            </div>
+        </div>
+
+    </body>
+    <style>
+        body {
+            background-color: #232f3e;
+        }
+
+        * {
+            font-family: AmazonEmber,Helvetica Neue,Helvetica,Arial,sans-serif;
+        }
+
+        .inputWrapper {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            align-items: center;
+        }
+        input {
+            padding-left: 6px;
+            margin-top: 8px;
+            margin-bottom: 8px;
+            height: 32px;
+            font-size: 20px;
+        }
+
+        button {
+            display: inline-block;
+            font-weight: 400;
+            text-align: center;
+            white-space: nowrap;
+            vertical-align: middle;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+            border: 1px solid #007bff;
+            padding: .375rem .75rem;
+            font-size: 1rem;
+            line-height: 1.5;
+            border-radius: .25rem;
+            transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+            color: #fff;
+            background-color: #007bff;
+            cursor: pointer;
+        }
+        button:hover {
+            color: #fff;
+            background-color: #0069d9;
+            border-color: #0062cc;
+        }
+
+        .logo {
+            height: 35px;
+        }
+        .pageContainer {
+            margin: auto;
+            padding: 15px;
+            color: #fff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+    </style>
+    <script>
+      const [ apiURL, apiKey ] = ["{{apiURL}}", "{{apiKey}}"];
+
+      function fetchTweets() {
+          const query = document.getElementById('hashtagInput').value.trim();
+          const qs = query.split(' ').map(t => encodeURIComponent(t)).join('%20');
+          const url = `${apiURL}FetchTweets` + (qs.length > 0 ? `?query=${qs}` : '');
+
+          fetch(url, {
+            method: 'GET',
+            headers: {
+              'x-api-key': apiKey,
+            }
+          }).then((response) => {
+            return response.json();
+          }).then((data) => {
+            document.getElementById("resultsContainer").innerHTML = data.tweets.map((r) => {
+              return `<div class="twitter"><p>Sentiment: ${r.sentiment}</p><p>${r.text}</p></div><hr>`;
+            }).join('');
+          }).catch((e) => {
+            console.log("error", e);
+          });
+        }
+    </script>
+</html>
+

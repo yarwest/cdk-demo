@@ -1,0 +1,15 @@
+*.js
+!jest.config.js
+*.d.ts
+node_modules
+
+**/.idea/*
+**/dist/*
+
+# CDK asset staging directory
+.cdk.staging
+cdk.out
+/cdk-demo.iml
+
+**/.DS_Store
+lib/frontend/index.html
