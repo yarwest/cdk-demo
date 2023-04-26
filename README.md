@@ -25,4 +25,4 @@ The CDK code is responsible for provisioning the resources required for the depl
 In order to properly secure the API Gateway from unauthorized third parties, an API key is set up during the provisioning.
 However, the dynamic provisioning of the API creates a challenge: the front-end needs to be aware of the URL at which the API is available, and it needs to know the API key to be able to submit requests to the API.
 This information needs to be dynamically injected into the front-end during the provisioning stage, which is why the front-end is stored in a `.handlebars` file instead of an `.html` file.
-During the deployment of the `frontend-stack` the Handlebars template is transformed into an `.html` which includes the injected API URL & key, which is then deployed to the S3 bucket. 
+During the deployment of the `frontend-stack` the Handlebars template is transformed into an `.html` file which includes the injected API URL & key, which is then deployed to the S3 bucket. 
