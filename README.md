@@ -1,6 +1,6 @@
-# CDK demo application: Tweet Sentiment Analyzer
+# AWS CDK demo application: Tweet Sentiment Analyzer
 
-This repository contains the code for a demo application which was used during my presentation at CodeEurope at PGE National Stadium in Warsaw on September 23rd 2021.
+This repository contains the code for a demo application which was used during my presentation on AWS [Cloud Development Kit](https://aws.amazon.com/cdk/) (CDK) at CodeEurope at PGE National Stadium in Warsaw on September 23rd 2021.
 The goal of the application is to allow users to search for tweets on Twitter based on a query (such as "#CodeEurope") and analyse the sentiment of the tweets using the sentiment detection functionality provided by [Amazon Comprehend](https://aws.amazon.com/comprehend/).
 
 The code consists of:
