@@ -30,7 +30,7 @@ export class LambdaStack extends cdk.Stack {
     const lambdaFunction = new lambda.Function(this, 'RestApiHandler', {
       code: lambda.Code.fromAsset('lib/lambda/getTweets/dist'),
       handler: 'index.handler',
-      runtime: lambda.Runtime.NODEJS_14_X,
+      runtime: lambda.Runtime.NODEJS_18_X,
       role: LambdaServiceRole,
       environment: {
         TWITTER_API_KEY: twitterAPIKey.valueAsString
