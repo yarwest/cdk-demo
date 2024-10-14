@@ -1,14 +1,14 @@
-import * as cdk from '@aws-cdk/core';
-import * as lambda from "@aws-cdk/aws-lambda";
-import {Cors, LambdaRestApi} from "@aws-cdk/aws-apigateway";
-import * as ssm from "@aws-cdk/aws-ssm";
+import { Construct } from 'constructs';
+import * as lambda from "aws-cdk-lib/aws-lambda";
+import {Cors, LambdaRestApi} from "aws-cdk-lib/aws-apigateway";
+import * as ssm from "aws-cdk-lib/aws-ssm";
 
 type APIProps = {
   lambdaFunction: lambda.Function,
 }
 
-export class APIConstruct extends cdk.Construct {
-  constructor(scope: cdk.Construct, id: string, props: APIProps) {
+export class APIConstruct extends Construct {
+  constructor(scope: Construct, id: string, props: APIProps) {
     super(scope, id);
 
     const api = new LambdaRestApi(this, 'RestAPIConsumer', {

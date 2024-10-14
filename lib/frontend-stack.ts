@@ -1,13 +1,13 @@
-import * as cdk from "@aws-cdk/core";
-import * as s3 from '@aws-cdk/aws-s3';
-import * as s3Deployment from '@aws-cdk/aws-s3-deployment';
-import * as ssm from '@aws-cdk/aws-ssm';
+import { StackProps, Stack, RemovalPolicy } from 'aws-cdk-lib';
+import { Construct } from 'constructs';
+import * as s3 from 'aws-cdk-lib/aws-s3';
+import * as s3Deployment from 'aws-cdk-lib/aws-s3-deployment';
+import * as ssm from 'aws-cdk-lib/aws-ssm';
 import * as handlebars from 'handlebars';
 import { readFileSync, writeFileSync } from 'fs';
-import { RemovalPolicy } from "@aws-cdk/core";
 
-export class FrontendStack extends cdk.Stack {
-  constructor(scope: cdk.Construct, id: string, props?: cdk.StackProps) {
+export class FrontendStack extends Stack {
+  constructor(scope: Construct, id: string, props?: StackProps) {
     super(scope, id, props);
 
     // @ts-ignore
@@ -23,6 +23,12 @@ export class FrontendStack extends cdk.Stack {
     const FrontEndBucket = new s3.Bucket(this, 'FrontEndDeploymentBucket', {
       bucketName: `yboelens-eurocode-cdk-demo-frontend-bucket`,
       versioned: true,
+      blockPublicAccess: {
+        blockPublicAcls: false,
+        blockPublicPolicy: false,
+        ignorePublicAcls: false,
+        restrictPublicBuckets: false,
+      },
       publicReadAccess: true,
       removalPolicy: RemovalPolicy.DESTROY,
       websiteIndexDocument: 'index.html'

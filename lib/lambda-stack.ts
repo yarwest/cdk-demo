@@ -1,12 +1,11 @@
-import * as cdk from '@aws-cdk/core';
-import {Effect, PolicyStatement, Role, ServicePrincipal } from '@aws-cdk/aws-iam';
-import * as lambda from "@aws-cdk/aws-lambda";
+import { CfnParameter, Stack } from 'aws-cdk-lib';
+import { Construct } from 'constructs';
+import {Effect, PolicyStatement, Role, ServicePrincipal } from 'aws-cdk-lib/aws-iam';
+import * as lambda from "aws-cdk-lib/aws-lambda";
 import {APIConstruct} from "./api-construct";
-import {CfnParameter} from "@aws-cdk/core";
 
-export class LambdaStack extends cdk.Stack {
-
-  constructor(scope: cdk.Construct, id: string) {
+export class LambdaStack extends Stack {
+  constructor(scope: Construct, id: string) {
     super(scope, id);
 
     const LambdaServiceRole = new Role(this, 'LambdaServiceRole', {
@@ -28,7 +27,7 @@ export class LambdaStack extends cdk.Stack {
       description: "API key to perform requests to the Twitter api."});
 
     const lambdaFunction = new lambda.Function(this, 'RestApiHandler', {
-      code: lambda.Code.fromAsset('lib/lambda/getTweets/dist'),
+      code: lambda.Code.fromAsset('lib/lambda/getTweets'),
       handler: 'index.handler',
       runtime: lambda.Runtime.NODEJS_18_X,
       role: LambdaServiceRole,
